@@ -1,0 +1,14 @@
+Package: polivax
+Type: Package
+Title: Displays vaccine approval and use against SARS-CoV2 globally 
+Version: 0.1.0
+Author: Florian Rumpf
+Maintainer: Florian Rumpf <floriantruncus@gmail.com>
+Description: More about what it does (maybe more than one line)
+    Use four spaces when indenting paragraphs within the Description.
+License: MIT license
+Encoding: UTF-8
+LazyData: true
+Suggests: 
+    testthat (>= 2.0.0)
+Config/testthat/edition: 2
