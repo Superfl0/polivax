@@ -23,3 +23,9 @@ main_menu <- function(){
 }
 
 
+box_ui <- function(code){
+  div(class = "ui raised segment",
+      code,
+      div(style = "width: 100%; height: 10px"))
+}
+

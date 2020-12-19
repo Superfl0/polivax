@@ -12,3 +12,7 @@ LazyData: true
 Suggests: 
     testthat (>= 2.0.0)
 Config/testthat/edition: 2
+Depends: 
+    R (>= 2.10)
+Imports: shiny, ggplot2, plotly, tidyverse, shiny.semantic, shiny.i18n, leaflet, magrittr, plotly
+RoxygenNote: 7.1.1

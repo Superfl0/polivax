@@ -1,0 +1,12 @@
+name: polivax
+title: polivax
+username:
+account: sciflow
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 3417324
+bundleId: 4007956
+url: https://sciflow.shinyapps.io/polivax/
+when: 1608343959.21836
+asMultiple: FALSE
+asStatic: FALSE

@@ -1,1 +1,11 @@
 exportPattern("^[[:alpha:]]+")
+
+importFrom(magrittr,"%>%")
+import(shiny)
+import(ggplot2)
+import(plotly)
+import(tidyverse)
+import(shiny.semantic)
+import(shiny.i18n)
+import(leaflet)
+import(plotly)
