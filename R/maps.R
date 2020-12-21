@@ -15,7 +15,7 @@ prep_data <- function(latest_vaccs){
   labels_vacc <- stringr::str_replace(levels(latest_vaccs$vaccine), "\\.", "\\-") %>% stringr::str_replace("_", " ")
   latest_vaccs$vaccine <- factor(latest_vaccs$vaccine, levels = levels(latest_vaccs$vaccine), labels = labels_vacc)
   
-  vacc_data <- subset(countries, countries$ISO_A3 %in% latest_vaccs$ISO_A3)
+  vacc_data <- subset(countries, countries$GU_A3 %in% latest_vaccs$ISO_A3)
   
   vacc_data@data <- dplyr::inner_join(vacc_data@data, latest_vaccs, by = "ISO_A3")
   
@@ -71,7 +71,7 @@ render_bar_plot <- function(sel_lang = "en", relative = FALSE, vacc_data = vacc_
   }
   
   
-  plot_data$NAME_SHOW <- factor(plot_data$NAME_SHOW, levels = unique(plot_data$NAME_SHOW)[order(plot_data$Vaccinated, decreasing = FALSE)])
+  plot_data$NAME_SHOW <- factor(plot_data$NAME_SHOW, levels = unique(plot_data$NAME_SHOW)[order(plot_data$vacc_rel, decreasing = FALSE)])
   
   colorScale <- leaflet::colorFactor(domain = plot_data$NAME_SHOW, palette = "YlGn")
   

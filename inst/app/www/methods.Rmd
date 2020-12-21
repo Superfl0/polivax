@@ -17,11 +17,19 @@ https://worldmap.harvard.edu/data/geonode:country_centroids_az8
 
 ### Vaccine Approval
 https://www.raps.org/news-and-articles/news-articles/2020/3/covid-19-vaccine-tracker
+https://www.bbc.com/news/world-europe-55401136
+https://www.timesofisrael.com/after-fda-approval-virus-czar-urges-all-israelis-to-get-covid-vaccine/
 
 ### Vaccinated Numbers 19/12/2020
 https://www.theguardian.com/world/2020/dec/16/138000-people-in-uk-have-received-covid-vaccine
 https://ourworldindata.org/covid-vaccinations
 https://www.theguardian.com/world/2020/nov/20/china-has-given-almost-a-million-people-experimental-covid-vaccine-says-company
+
+### Vaccinated Numbers 21/12/2020
+https://www.nytimes.com/interactive/2020/us/covid-19-vaccine-doses.html
+
+
+
 
 
 
