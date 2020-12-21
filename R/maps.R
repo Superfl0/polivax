@@ -3,19 +3,38 @@
 #' @export
 #' @rdname maps
 
+prep_data <- function(latest_vaccs){
+  
+  latest_vaccs <- tidyr::gather(latest_vaccs, key = "vaccine", value = "approved", -name, -iso_a2, -iso_a3, -Longitude, -Latitude, -Vaccinated) %>% 
+    dplyr::filter(approved == 1) %>% 
+    dplyr::mutate(ISO_A3 = iso_a3) %>% 
+    dplyr::group_by(ISO_A3) %>% 
+    dplyr::summarise(vaccine = dplyr::first(vaccine), Vaccinated = max(Vaccinated))
+  
+  latest_vaccs$vaccine <- factor(latest_vaccs$vaccine)
+  labels_vacc <- stringr::str_replace(levels(latest_vaccs$vaccine), "\\.", "\\-") %>% stringr::str_replace("_", " ")
+  latest_vaccs$vaccine <- factor(latest_vaccs$vaccine, levels = levels(latest_vaccs$vaccine), labels = labels_vacc)
+  
+  vacc_data <- subset(countries, countries$ISO_A3 %in% latest_vaccs$ISO_A3)
+  
+  vacc_data@data <- dplyr::inner_join(vacc_data@data, latest_vaccs, by = "ISO_A3")
+  
+  return(vacc_data)
+}
 
-render_vacc_map <- function(sel_lang = "en"){
+
+render_vacc_map <- function(sel_lang = "en", vacc_data = vacc_count){
   if(sel_lang == c("de")){
-    vacc_count$NAME_SHOW <- as.character(vacc_count$NAME_DE)
-    Encoding(vacc_count$NAME_SHOW) <- "UTF-8"
+    vacc_data$NAME_SHOW <- as.character(vacc_data$NAME_DE)
+    Encoding(vacc_data$NAME_SHOW) <- "UTF-8"
   }else{
-    vacc_count$NAME_SHOW <- as.character(vacc_count$NAME)
+    vacc_data$NAME_SHOW <- as.character(vacc_data$NAME)
   }
   
-  pal <- leaflet::colorFactor(palette = "Dark2", domain = (vacc_count$vaccine))
+  pal <- leaflet::colorFactor(palette = "Dark2", domain = (vacc_data$vaccine))
   
   leaflet::renderLeaflet({
-    leaflet::leaflet(data = vacc_count, options = leafletOptions(maxZoom = 7, worldCopyJump = TRUE, maxBounds = list(list(-90, -180),list(90, 180)))) %>% 
+    leaflet::leaflet(data = vacc_data, options = leafletOptions(maxZoom = 7, worldCopyJump = TRUE, maxBounds = list(list(-90, -180),list(90, 180)))) %>% 
       leaflet::addMapPane(name = "polygons", zIndex = 410) %>% 
       leaflet::addMapPane(name = "maplabels", zIndex = 420) %>%
       leaflet::addProviderTiles(providers$CartoDB.PositronNoLabels, group = "map_base", options = providerTileOptions(noWrap = TRUE)) %>% 
@@ -30,10 +49,10 @@ render_vacc_map <- function(sel_lang = "en"){
 
 
 
-render_bar_plot <- function(sel_lang = "en", relative = FALSE){
+render_bar_plot <- function(sel_lang = "en", relative = FALSE, vacc_data = vacc_count){
   #options(scipen = 100000000)
   
-  plot_data <- dplyr::filter(vacc_count@data, Vaccinated > 0) 
+  plot_data <- dplyr::filter(vacc_data@data, Vaccinated > 0) 
 
   if(sel_lang == c("de")){
     plot_data$NAME_SHOW <- as.character(plot_data$NAME_DE)

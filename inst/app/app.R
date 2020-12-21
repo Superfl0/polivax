@@ -10,9 +10,8 @@ library(leaflet)
 library(polivax)
 library(plotly)
 
-setwd("C:/Dropbox/R/polivax")
 
-i18n <- Translator$new(translation_json_path = "data/translation.json")
+i18n <- Translator$new(translation_json_path = "www/translation.json")
 i18n$set_translation_language("de") # here you select the default translation to display
 
 css <- "
@@ -35,7 +34,7 @@ ui <- semanticPage(margin = "0px",
     shiny.i18n::usei18n(i18n),
     div(class = "container-fluid", style = "font-size: 30px; padding: 20px 20px 30px 20px; background-color: #008084; color:white; line-height: 1;", "Polivax",
         div(style = "float:right; padding: 0px 0px 0px 0px;",
-            dropdown_menu(icon("large hamburger"), 
+            dropdown_menu(class = "ui right pointing dropdown", icon("large hamburger"), 
                       menu(menu_header(icon("file"), i18n$t("About"),is_item = FALSE), 
                            menu_item(icon("wrench"), i18n$t("Methods"), href = "#methods"), 
                            menu_item(icon("download"), i18n$t("Get graphs")), 
@@ -48,9 +47,9 @@ ui <- semanticPage(margin = "0px",
                            selectInput('selected_language',
                                        "",
                                        choices = i18n$get_languages(),
-                                       selected = i18n$get_key_translation())
+                                       selected = "de")
                       ), 
-                      class = "", name = "main_dropdown", is_menu_item = TRUE))
+                      name = "main_dropdown", is_menu_item = TRUE))
     ),
     leafletOutput("vacc_map"),
     div(class = "ui container", style = "padding: 20px 20px 20px 20px; background: white; max-width = 1000px;",
@@ -73,7 +72,7 @@ ui <- semanticPage(margin = "0px",
         
         h1(class = "ui header", style = "text-align:center;", i18n$t("Methods")),
         
-        box_ui(includeMarkdown("data/methods.Rmd"))
+        box_ui(includeMarkdown("www/methods.Rmd"))
     )
 )
 
@@ -81,14 +80,18 @@ ui <- semanticPage(margin = "0px",
 # Define server logic required to draw a histogram
 server <- function(input, output, session) {
     
+    latest_vaccs <- read.csv("www/country_vaccine.csv")
+    
+    vacc_data <- prep_data(latest_vaccs = latest_vaccs)
+    
     observeEvent(input$selected_language, {
         # This print is just for demonstration
         print(paste("Language change!", input$selected_language))
         # Here is where we update language in session
         shiny.i18n::update_lang(session, input$selected_language)
-        output$vacc_map <- render_vacc_map(sel_lang = input$selected_language)
-        output$plot_vaccinated <- render_bar_plot(sel_lang = input$selected_language, relative = FALSE)
-        output$plot_vaccinated_relative <- render_bar_plot(sel_lang = input$selected_language, relative = TRUE)
+        output$vacc_map <- render_vacc_map(sel_lang = input$selected_language, vacc_data = vacc_data)
+        output$plot_vaccinated <- render_bar_plot(sel_lang = input$selected_language, relative = FALSE, vacc_data = vacc_data)
+        output$plot_vaccinated_relative <- render_bar_plot(sel_lang = input$selected_language, relative = TRUE, vacc_data = vacc_data)
     })
     
     output$methods_tag <- renderText({
