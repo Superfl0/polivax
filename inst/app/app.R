@@ -26,31 +26,12 @@ css <- "
 }
 "
 
-
 # Define UI for application that draws a histogram
 ui <- semanticPage(margin = "0px",
     title = "Polivax",
     tags$head(tags$style(HTML(css))),
     shiny.i18n::usei18n(i18n),
-    div(class = "container-fluid", style = "font-size: 30px; padding: 20px 20px 30px 20px; background-color: #008084; color:white; line-height: 1;", "Polivax",
-        div(style = "float:right; padding: 0px 0px 0px 0px;",
-            dropdown_menu(class = "ui right pointing dropdown", icon("large hamburger"), 
-                      menu(menu_header(icon("file"), i18n$t("About"),is_item = FALSE), 
-                           menu_item(icon("wrench"), i18n$t("Methods"), href = "#methods"), 
-                           menu_item(icon("download"), i18n$t("Get graphs")), 
-                           menu_divider(), 
-                           menu_header(icon("user"), i18n$t("Credits"), is_item = FALSE), 
-                           menu_item(icon("wordpress"), i18n$t("Author"), href = "http://sciflow.eu"), 
-                           menu_item(icon("github"), i18n$t("Fork me"), href = "https://github.com/upfl0/polivax"),
-                           menu_divider(), 
-                           menu_header(icon("comment"), i18n$t("Change language"), is_item = FALSE),
-                           selectInput('selected_language',
-                                       "",
-                                       choices = i18n$get_languages(),
-                                       selected = "de")
-                      ), 
-                      name = "main_dropdown", is_menu_item = TRUE))
-    ),
+    ui_header(i18n),
     leafletOutput("vacc_map"),
     div(class = "ui container", style = "padding: 20px 20px 20px 20px; background: white; max-width = 1000px;",
     
@@ -89,7 +70,7 @@ server <- function(input, output, session) {
         print(paste("Language change!", input$selected_language))
         # Here is where we update language in session
         shiny.i18n::update_lang(session, input$selected_language)
-        output$vacc_map <- render_vacc_map(sel_lang = input$selected_language, vacc_data = vacc_data)
+        output$vacc_map <- render_vacc_map(sel_lang = input$selected_language, latest_vaccs = latest_vaccs)
         output$plot_vaccinated <- render_bar_plot(sel_lang = input$selected_language, relative = FALSE, vacc_data = vacc_data)
         output$plot_vaccinated_relative <- render_bar_plot(sel_lang = input$selected_language, relative = TRUE, vacc_data = vacc_data)
     })
