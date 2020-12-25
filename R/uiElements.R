@@ -24,8 +24,7 @@ div(class = "container-fluid", style = "font-size: 30px; padding: 20px 20px 30px
                            menu_header(icon("comment"), i18n$t("Change language"), is_item = FALSE),
                            selectInput('selected_language',
                                        "",
-                                       choices = i18n$get_languages(),
-                                       selected = "de")
+                                       choices = i18n$get_languages())
                       ), 
                       name = "main_dropdown", is_menu_item = TRUE))
 )

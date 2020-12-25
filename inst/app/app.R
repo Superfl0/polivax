@@ -12,7 +12,7 @@ library(plotly)
 
 
 i18n <- Translator$new(translation_json_path = "www/translation.json")
-i18n$set_translation_language("de") # here you select the default translation to display
+i18n$set_translation_language("en") # here you select the default translation to display
 
 css <- "
 .div{
@@ -48,7 +48,6 @@ ui <- semanticPage(margin = "0px",
             )),
         
         
-        
         htmlOutput("methods_tag"),
         
         h1(class = "ui header", style = "text-align:center;", i18n$t("Methods")),
@@ -74,6 +73,7 @@ server <- function(input, output, session) {
         output$plot_vaccinated <- render_bar_plot(sel_lang = input$selected_language, relative = FALSE, vacc_data = vacc_data)
         output$plot_vaccinated_relative <- render_bar_plot(sel_lang = input$selected_language, relative = TRUE, vacc_data = vacc_data)
     })
+    
     
     output$methods_tag <- renderText({
         "<div id='methods'>&nbsp;</div>"

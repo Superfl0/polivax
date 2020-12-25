@@ -5,8 +5,8 @@ account: sciflow
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 3417324
-bundleId: 4016651
+bundleId: 4018755
 url: https://sciflow.shinyapps.io/polivax/
-when: 1608586417.31956
+when: 1608642278.9039
 asMultiple: FALSE
 asStatic: FALSE

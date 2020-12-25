@@ -24,9 +24,9 @@ render_vacc_map <- function(sel_lang = "en", latest_vaccs = latest_vaccs){
   labels_vacc <- stringr::str_replace(levels(latest_vaccs$vaccine), "\\.", "\\-") %>% stringr::str_replace("_", " ")
   latest_vaccs$vaccine <- factor(latest_vaccs$vaccine, levels = levels(latest_vaccs$vaccine), labels = labels_vacc)
   
-  latest_vaccs_first <- latest_vaccs %>% 
+  latest_vaccs_first <- latest_vaccs %>% dplyr::group_by(ISO_A3) %>%
     dplyr::summarise(vaccine = dplyr::first(vaccine), Vaccinated = max(Vaccinated))
-  latest_vaccs_second <- latest_vaccs %>% 
+  latest_vaccs_second <- latest_vaccs %>% dplyr::group_by(ISO_A3) %>%
     dplyr::summarise(vaccine = dplyr::nth(vaccine, 2), Vaccinated = max(Vaccinated)) %>% na.omit
   
   countries$ISO_A3 <- countries$ADM0_A3

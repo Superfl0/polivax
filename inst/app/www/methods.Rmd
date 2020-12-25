@@ -5,12 +5,18 @@ date: "12/16/2020"
 output: html_document
 ---
 
+# This is an open source project
+Polivax (short for political vaccinations) is a project that aims to monitor the global distribution and use of vaccines against SARS-CoV-2. Despite recent rollouts in high income countries, to date none of the available vaccines have been made publicly available in any low income countries.
 
-# Mapping data obtained from:
-naturalearthdata.com 1:50m Cultural Vectors Admin 0 - Countries
+All code and data can be found on [Github](https://github.com/upfl0/polivax)
 
-# Country centroids:
-https://worldmap.harvard.edu/data/geonode:country_centroids_az8
+Do you want to contribute? [Reach out!](mailto:frumpf@sciflow.eu)
+
+Did we miss anything or did you find a bug? [Let me know.](mailto:frumpf@sciflow.eu)
+
+
+# Data Sources:
+[Naturalearthdata.com](https://www.naturalearthdata.com/downloads/50m-cultural-vectors/50m-admin-0-countries-2/) 1:50m Cultural Vectors Admin 0 - Country polygons, population data and income
 
 
 # Vaccination data
@@ -20,20 +26,16 @@ https://www.raps.org/news-and-articles/news-articles/2020/3/covid-19-vaccine-tra
 https://www.bbc.com/news/world-europe-55401136
 https://www.timesofisrael.com/after-fda-approval-virus-czar-urges-all-israelis-to-get-covid-vaccine/
 
-### Vaccinated Numbers 19/12/2020
+### Number of people vaccinated 19/12/2020
 https://www.theguardian.com/world/2020/dec/16/138000-people-in-uk-have-received-covid-vaccine
 https://ourworldindata.org/covid-vaccinations
 https://www.theguardian.com/world/2020/nov/20/china-has-given-almost-a-million-people-experimental-covid-vaccine-says-company
 
-### Vaccinated Numbers 21/12/2020
+### Number of people vaccinated 21/12/2020
 https://www.nytimes.com/interactive/2020/us/covid-19-vaccine-doses.html
 
-
-
-
-
-
-# Including Plots
-
-You can also embed plots, for example:
-
+### Number of people vaccinated 25/12/2020
+https://www.gov.uk/government/news/over-600000-people-get-first-dose-of-pfizerbiontech-vaccine
+https://www.nytimes.com/interactive/2020/us/covid-19-vaccine-doses.html
+https://art-bd.shinyapps.io/covid19canada/
+https://www.timesofisrael.com/nearly-4000-new-virus-cases-diagnosed-as-number-of-vaccinated-hits-210000/
